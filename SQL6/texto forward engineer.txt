@@ -1,0 +1,49 @@
+-- MySQL Workbench Forward Engineering
+
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema artistas_vinilos
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema artistas_vinilos
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `artistas_vinilos` DEFAULT CHARACTER SET utf8 ;
+USE `artistas_vinilos` ;
+
+-- -----------------------------------------------------
+-- Table `artistas_vinilos`.`artistas`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `artistas_vinilos`.`artistas` (
+  `idartistas` INT NOT NULL AUTO_INCREMENT,
+  `nombre_artista` VARCHAR(45) NULL,
+  `genero_artista` VARCHAR(45) NULL,
+  PRIMARY KEY (`idartistas`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `artistas_vinilos`.`vinilos`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `artistas_vinilos`.`vinilos` (
+  `id_vinilos` INT NOT NULL AUTO_INCREMENT,
+  `nombre_album` VARCHAR(45) NULL,
+  `año_lanzamiento` INT NULL,
+  `cancion_escuchada` VARCHAR(45) NULL,
+  `artistas_idartistas` INT NOT NULL,
+  PRIMARY KEY (`id_vinilos`),
+  INDEX `fk_vinilos_artistas_idx` (`artistas_idartistas` ASC),
+  CONSTRAINT `fk_vinilos_artistas`
+    FOREIGN KEY (`artistas_idartistas`)
+    REFERENCES `artistas_vinilos`.`artistas` (`idartistas`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+SET SQL_MODE=@OLD_SQL_MODE;
+SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
+SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
